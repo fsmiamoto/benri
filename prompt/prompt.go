@@ -12,9 +12,11 @@ type Module struct {
 }
 
 func New(modules []*Module) string {
-	parts := make([]string, len(modules))
+	var sources []string
 	for i := range modules {
-		parts[i] = color.New(modules[i].ColorOptions...).Sprint(modules[i].Source())
+		if source := modules[i].Source(); source != "" {
+			sources = append(sources, color.New(modules[i].ColorOptions...).Sprint(source))
+		}
 	}
-	return strings.Join(parts, " ")
+	return strings.Join(sources, " ")
 }
