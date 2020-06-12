@@ -2,7 +2,7 @@
 
 A minimal prompt written in Go
 
-![demo.png](Demo of benri)
+![Image of benri](demo.png)
 
 Following the [suckless philosophy](https://suckless.org/philosophy/), this project focuses on extensibility
 via source code and not by config files.
