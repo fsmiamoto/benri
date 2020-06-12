@@ -17,9 +17,7 @@ const (
 )
 
 func init() {
-	cwd, _ := os.Getwd()
-
-	repo, _ = gg.PlainOpenWithOptions(cwd, &gg.PlainOpenOptions{
+	repo, _ = gg.PlainOpenWithOptions(os.Getenv("PWD"), &gg.PlainOpenOptions{
 		DetectDotGit: true,
 	})
 }
@@ -42,8 +40,15 @@ func Status() string {
 		return ""
 	}
 
-	wt, _ := repo.Worktree()
-	status, _ := wt.Status()
+	wt, err := repo.Worktree()
+	if err != nil {
+		return ""
+	}
+
+	status, err := wt.Status()
+	if err != nil {
+		return ""
+	}
 
 	flags := []string{"", "", "", ""}
 
