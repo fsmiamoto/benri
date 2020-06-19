@@ -12,7 +12,7 @@ type Module struct {
 }
 
 func New(modules []*Module) string {
-	var sources []string
+	sources := make([]string, 0, len(modules))
 	for i := range modules {
 		if source := modules[i].Source(); source != "" {
 			sources = append(sources, color.New(modules[i].ColorOptions...).Sprint(source))
