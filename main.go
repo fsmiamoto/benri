@@ -13,7 +13,7 @@ import (
 var modules = []*prompt.Module{
 	{Source: directory.CurrentWorking, ColorOptions: []color.Attribute{color.FgBlue, color.Bold}},
 	{Source: git.CurrentBranch, ColorOptions: []color.Attribute{color.FgMagenta, color.Bold}},
-	{Source: duration.Seconds, ColorOptions: []color.Attribute{color.FgYellow, color.Bold}},
+	{Source: duration.String, ColorOptions: []color.Attribute{color.FgYellow, color.Bold}},
 }
 
 func main() {
