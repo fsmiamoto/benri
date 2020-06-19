@@ -20,35 +20,36 @@ func String() string {
 	if err != nil {
 		return ""
 	}
-	return format(int64(timestamp))
-}
 
-// format returns a string with human readable format for
-// a Unix Time
-func format(timestamp int64) string {
-	elapsed := time.Now().Unix() - int64(timestamp)
-	if elapsed < MinDuration {
+	duration := time.Now().Unix() - int64(timestamp)
+	if duration < MinDuration {
 		return ""
 	}
 
+	return format(duration)
+}
+
+// format returns a string with human readable format for
+// a duration in seconds
+func format(dur int64) string {
 	sections := []string{"", "", ""}
 
-	if elapsed/Hour != 0 {
-		hours := elapsed / Hour
+	if dur/Hour != 0 {
+		hours := dur / Hour
 		sections[0] = strconv.FormatInt(hours, 10) + "h"
-		elapsed -= hours * Hour
+		dur -= hours * Hour
 	}
 
-	if elapsed/Min != 0 {
-		mins := elapsed / Min
+	if dur/Min != 0 {
+		mins := dur / Min
 		sections[1] = strconv.FormatInt(mins, 10) + "m"
-		elapsed -= mins * Min
+		dur -= mins * Min
 	}
 
-	if elapsed/Sec != 0 {
-		secs := elapsed / Sec
+	if dur/Sec != 0 {
+		secs := dur / Sec
 		sections[2] = strconv.FormatInt(secs, 10) + "s"
-		elapsed -= secs * Sec
+		dur -= secs * Sec
 	}
 
 	return strings.Join(sections, "")
