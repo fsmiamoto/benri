@@ -11,12 +11,12 @@ type Module struct {
 	ColorOptions []color.Attribute
 }
 
-func New(modules []*Module) string {
+func New(modules []*Module, separator string) string {
 	sources := make([]string, 0, len(modules))
 	for i := range modules {
 		if source := modules[i].Source(); source != "" {
 			sources = append(sources, color.New(modules[i].ColorOptions...).Sprint(source))
 		}
 	}
-	return strings.Join(sources, " ")
+	return strings.Join(sources, separator)
 }

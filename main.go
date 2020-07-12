@@ -17,5 +17,5 @@ var modules = []*prompt.Module{
 }
 
 func main() {
-	fmt.Println(prompt.New(modules))
+	fmt.Println(prompt.New(modules, " "))
 }
