@@ -5,7 +5,7 @@ import (
 )
 
 // WithUser returns a string with the user and hostname
-// e.g user@machin
+// e.g user@machine
 func WithUser() string {
 	host, err := os.Hostname()
 	if err != nil {
