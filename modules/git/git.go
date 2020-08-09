@@ -1,69 +1,86 @@
 package git
 
 import (
-	"os"
 	"strings"
 
-	gg "github.com/go-git/go-git/v5"
+	"github.com/arl/gitstatus"
 )
 
-var repo *gg.Repository
-
-const (
-	untracked uint8 = iota
-	modified
-	added
-	deleted
-)
+var status *gitstatus.Status
 
 func init() {
-	repo, _ = gg.PlainOpenWithOptions(os.Getenv("PWD"), &gg.PlainOpenOptions{
-		DetectDotGit: true,
-	})
+	status, _ = gitstatus.New()
 }
 
 func CurrentBranch() string {
-	if repo == nil {
+	if status == nil {
 		return ""
 	}
 
-	head, err := repo.Head()
-	if err != nil {
-		return ""
+	if status.IsDetached {
+		return "(detached " + status.HEAD + ")"
 	}
 
-	return head.Name().Short()
+	return status.LocalBranch
 }
 
-func Status() string {
-	if repo == nil {
+func RemoteBranch() string {
+	if status == nil {
 		return ""
 	}
+	return status.RemoteBranch
+}
 
-	wt, err := repo.Worktree()
-	if err != nil {
-		return ""
-	}
-
-	status, err := wt.Status()
-	if err != nil {
-		return ""
-	}
-
-	flags := []string{"", "", "", ""}
-
-	for _, s := range status {
-		switch s.Worktree {
-		case gg.Untracked:
-			flags[untracked] = "?"
-		case gg.Modified:
-			flags[modified] = "!"
-		case gg.Added:
-			flags[added] = "+"
-		case gg.Deleted:
-			flags[deleted] = "-"
+func Status(separator string, statuses ...func() string) func() string {
+	if status == nil {
+		return func() string {
+			return ""
 		}
-
 	}
-	return strings.Join(flags, "")
+
+	result := make([]string, len(statuses))
+	for i := range statuses {
+		result[i] = statuses[i]()
+	}
+
+	return func() string {
+		return strings.Join(result, separator)
+	}
+
+}
+
+func HasStashed(symbol string) func() string {
+	return func() string {
+		if status == nil || status.NumStashed == 0 {
+			return ""
+		}
+		return symbol
+	}
+}
+
+func HasModified(symbol string) func() string {
+	return func() string {
+		if status == nil || status.NumModified == 0 {
+			return ""
+		}
+		return symbol
+	}
+}
+
+func HasStaged(symbol string) func() string {
+	return func() string {
+		if status == nil || status.NumStaged == 0 {
+			return ""
+		}
+		return symbol
+	}
+}
+
+func HasUntracked(symbol string) func() string {
+	return func() string {
+		if status == nil || status.NumUntracked == 0 {
+			return ""
+		}
+		return symbol
+	}
 }
