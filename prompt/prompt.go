@@ -7,16 +7,19 @@ import (
 )
 
 type Module struct {
-	Source       func() string
+	Content      func() string
+	Before       string
+	After        string
 	ColorOptions []color.Attribute
 }
 
-func New(modules []*Module, separator string) string {
-	sources := make([]string, 0, len(modules))
+func New(modules []*Module) string {
+	contents := make([]string, 0, len(modules))
 	for i := range modules {
-		if source := modules[i].Source(); source != "" {
-			sources = append(sources, color.New(modules[i].ColorOptions...).Sprint(source))
+		if content := modules[i].Content(); content != "" {
+			content = modules[i].Before + content + modules[i].After
+			contents = append(contents, color.New(modules[i].ColorOptions...).Sprint(content))
 		}
 	}
-	return strings.Join(sources, separator)
+	return strings.Join(contents, "")
 }

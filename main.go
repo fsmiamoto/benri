@@ -11,12 +11,15 @@ import (
 )
 
 var modules = []*prompt.Module{
-	{Source: directory.CurrentWorking, ColorOptions: []color.Attribute{color.FgBlue, color.Bold}},
-	{Source: git.CurrentBranch, ColorOptions: []color.Attribute{color.FgMagenta, color.Bold}},
-	{Source: git.Status("", git.HasModified("!"), git.HasStaged("@"), git.HasStashed("$"), git.HasUntracked("*")), ColorOptions: []color.Attribute{color.FgGreen, color.Bold}},
-	{Source: duration.String, ColorOptions: []color.Attribute{color.FgYellow, color.Bold}},
+	{Content: directory.CurrentWorking, After: " ", ColorOptions: []color.Attribute{color.FgBlue, color.Bold}},
+	{Content: git.CurrentBranch, After: " ", ColorOptions: []color.Attribute{color.FgMagenta, color.Bold}},
+	{Content: git.HasModified("!"), ColorOptions: []color.Attribute{color.FgHiGreen, color.Bold}},
+	{Content: git.HasUntracked("?"), ColorOptions: []color.Attribute{color.FgHiBlue, color.Bold}},
+	{Content: git.HasStaged("+"), ColorOptions: []color.Attribute{color.FgHiRed, color.Bold}},
+	{Content: git.HasStashed("$"), ColorOptions: []color.Attribute{color.FgHiMagenta, color.Bold}},
+	{Content: duration.String, Before: " ", ColorOptions: []color.Attribute{color.FgYellow, color.Bold}},
 }
 
 func main() {
-	fmt.Println(prompt.New(modules, " "))
+	fmt.Println(prompt.New(modules))
 }
