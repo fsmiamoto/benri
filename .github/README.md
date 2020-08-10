@@ -1,8 +1,9 @@
 # benri
+![Test](https://github.com/fsmiamoto/benri/workflows/Test/badge.svg)
 
 A minimal prompt written in Go
 
-![Image of benri](demo.png)
+![Preview of benri](preview.gif)
 
 Following the [suckless philosophy](https://suckless.org/philosophy/), this project focuses on extensibility
 via source code and not by config files.
@@ -16,7 +17,7 @@ Requires:
 $ git clone https://github.com/fsmiamoto/benri
 $ cd benri
 # This adds benri to your GOBIN directory
-$ go install
+$ make install
 ```
 
 ## Usage
