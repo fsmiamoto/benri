@@ -7,10 +7,11 @@ import (
 	"github.com/fsmiamoto/benri/modules/directory"
 	"github.com/fsmiamoto/benri/modules/duration"
 	"github.com/fsmiamoto/benri/modules/git"
-	"github.com/fsmiamoto/benri/prompt"
+	p "github.com/fsmiamoto/benri/prompt"
+	m "github.com/fsmiamoto/benri/prompt/module"
 )
 
-var modules = []*prompt.Module{
+var modules = []*m.Module{
 	{Content: directory.CurrentWorking, After: " ", ColorOptions: []color.Attribute{color.FgBlue, color.Bold}},
 	{Content: git.CurrentBranch, After: " ", ColorOptions: []color.Attribute{color.FgMagenta, color.Bold}},
 	{Content: git.HasModified("!"), ColorOptions: []color.Attribute{color.FgHiGreen, color.Bold}},
@@ -21,5 +22,5 @@ var modules = []*prompt.Module{
 }
 
 func main() {
-	fmt.Println(prompt.New(modules))
+	fmt.Println(p.New(modules))
 }

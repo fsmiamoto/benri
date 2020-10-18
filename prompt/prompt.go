@@ -4,16 +4,10 @@ import (
 	"strings"
 
 	"github.com/fatih/color"
+	m "github.com/fsmiamoto/benri/prompt/module"
 )
 
-type Module struct {
-	Content      func() string
-	Before       string
-	After        string
-	ColorOptions []color.Attribute
-}
-
-func New(modules []*Module) string {
+func New(modules []*m.Module) string {
 	contents := make([]string, 0, len(modules))
 	for i := range modules {
 		if content := modules[i].Content(); content != "" {
