@@ -12,13 +12,13 @@ import (
 )
 
 var modules = []*m.Module{
-	{Content: directory.CurrentWorking, After: " ", ColorOptions: []color.Attribute{color.FgBlue, color.Bold}},
-	{Content: git.CurrentBranch, After: " ", ColorOptions: []color.Attribute{color.FgMagenta, color.Bold}},
-	{Content: git.HasModified("!"), ColorOptions: []color.Attribute{color.FgHiGreen, color.Bold}},
-	{Content: git.HasUntracked("?"), ColorOptions: []color.Attribute{color.FgHiBlue, color.Bold}},
-	{Content: git.HasStaged("+"), ColorOptions: []color.Attribute{color.FgHiRed, color.Bold}},
-	{Content: git.HasStashed("$"), ColorOptions: []color.Attribute{color.FgHiMagenta, color.Bold}},
-	{Content: duration.String, Before: " ", ColorOptions: []color.Attribute{color.FgYellow, color.Bold}},
+	m.New(directory.CurrentWorking, m.After(" "), m.ColorOptions(color.FgBlue, color.Bold)),
+	m.New(git.CurrentBranch, m.After(" "), m.ColorOptions(color.FgMagenta, color.Bold)),
+	m.New(git.HasModified("!"), m.ColorOptions(color.FgHiGreen, color.Bold)),
+	m.New(git.HasUntracked("?"), m.ColorOptions(color.FgHiBlue, color.Bold)),
+	m.New(git.HasStaged("+"), m.ColorOptions(color.FgHiRed, color.Bold)),
+	m.New(git.HasStashed("$"), m.ColorOptions(color.FgHiMagenta, color.Bold)),
+	m.New(duration.String, m.Before(" "), m.ColorOptions(color.FgYellow, color.Bold)),
 }
 
 func main() {
