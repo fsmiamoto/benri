@@ -1,10 +1,14 @@
 package prompt
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/fsmiamoto/benri/prompt/module"
+)
 
 func TestNew(t *testing.T) {
 	type args struct {
-		modules []*Module
+		modules []*module.Module
 	}
 	tests := []struct {
 		name string
@@ -14,7 +18,7 @@ func TestNew(t *testing.T) {
 		{
 			name: "basic prompt",
 			args: args{
-				modules: []*Module{
+				modules: []*module.Module{
 					{
 						Content: func() string { return "user@computer" },
 						After:   " ",
