@@ -1,6 +1,7 @@
 GO = go
 CFLAGS =
 BIN = benri
+BENCH_COUNT=1000
 
 all: build
 
@@ -13,3 +14,6 @@ install: build
 test:
 	$(GO) test -v ./...
 
+benchmark: build
+	@echo "Running benri ${BENCH_COUNT} times..."
+	@time -p ./benchmark.sh $(BIN) $(BENCH_COUNT) 2>&1 
