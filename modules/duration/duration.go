@@ -7,26 +7,30 @@ import (
 	"time"
 )
 
-// Durations less than MinDuration are not shown
-const MinDuration = 3 // seconds
+// Durations less than DefaultDisplayMin are not shown
+const DefaultDisplayMin = 3 // seconds
 
 const Day = 24 * Hour
-const Hour = int64(time.Hour / 1E9)
-const Min = int64(time.Minute / 1E9)
-const Sec = int64(time.Second / 1E9)
+const Hour = int64(time.Hour / 1e9)
+const Min = int64(time.Minute / 1e9)
+const Sec = int64(time.Second / 1e9)
 
 func String() string {
-	timestamp, err := strconv.Atoi(os.Getenv("BENRI_PREEXEC"))
-	if err != nil {
-		return ""
-	}
+	return WithDisplayMinInSecs(DefaultDisplayMin)()
+}
 
-	duration := time.Now().Unix() - int64(timestamp)
-	if duration < MinDuration {
-		return ""
+func WithDisplayMinInSecs(min int) func() string {
+	return func() string {
+		timestamp, err := strconv.Atoi(os.Getenv("BENRI_PREEXEC"))
+		if err != nil {
+			return ""
+		}
+		duration := time.Now().Unix() - int64(timestamp)
+		if duration < int64(min) {
+			return ""
+		}
+		return format(duration)
 	}
-
-	return format(duration)
 }
 
 // format returns a string with human readable format for
