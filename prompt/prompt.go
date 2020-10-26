@@ -19,6 +19,11 @@ func NewWithLeftAndRight(left []*m.Module, right []*m.Module) string {
 	r, rl := buildFromModules(right)
 
 	whitespace := getTerminalWidth() - ll - rl
+
+	for whitespace < 0 {
+		whitespace += getTerminalWidth()
+	}
+
 	w := strings.Repeat(" ", whitespace)
 
 	return l + w + r
