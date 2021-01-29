@@ -9,7 +9,7 @@ build:
 	$(GO) build $(CFLAGS) -o $(BIN)
 
 install: build
-	$(GO) install
+	cp $(BIN) /usr/bin/$(BIN)
 
 test:
 	$(GO) test -v ./...
