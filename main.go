@@ -8,6 +8,7 @@ import (
 	"github.com/fsmiamoto/benri/modules/directory"
 	"github.com/fsmiamoto/benri/modules/duration"
 	"github.com/fsmiamoto/benri/modules/git"
+	"github.com/fsmiamoto/benri/modules/hostname"
 	p "github.com/fsmiamoto/benri/prompt"
 	m "github.com/fsmiamoto/benri/prompt/module"
 )
@@ -23,6 +24,7 @@ var onLeft = []*m.Module{
 
 var onRight = []*m.Module{
 	m.New(duration.WithDisplayMinInSecs(3), m.After(" "), m.ColorOptions(color.FgYellow, color.Bold)),
+	m.New(hostname.WithUser, m.After(" "), m.ColorOptions(color.FgHiCyan, color.Bold)),
 	m.New(clock.With24H, m.ColorOptions(color.FgHiWhite, color.Bold), m.After(" ")),
 }
 
