@@ -10,6 +10,9 @@ func With12H() string {
 	return time.Now().Format("3:04PM")
 }
 
-func WithFormat(fmt string) string {
-	return time.Now().Format(fmt)
+func WithFormat(fmt string) func() string {
+	return func() string {
+		return time.Now().Format(fmt)
+	}
+
 }
