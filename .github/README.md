@@ -16,8 +16,8 @@ Requires:
 ```bash
 $ git clone https://github.com/fsmiamoto/benri
 $ cd benri
-# This adds benri to your GOBIN directory
-$ make install
+# This adds benri to /usr/bin/benri
+$ sudo make install
 ```
 
 ## Usage
