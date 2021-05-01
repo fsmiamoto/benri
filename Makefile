@@ -1,15 +1,15 @@
-GO = go
-CFLAGS =
+GO := $(shell which go)
+
 BIN = benri
 BENCH_COUNT=1000
 
 all: build
 
 build:
-	$(GO) build $(CFLAGS) -o $(BIN)
+	$(GO) build -o $(BIN)
 
 install: build
-	cp $(BIN) /usr/bin/$(BIN)
+	sudo cp $(BIN) /usr/bin/$(BIN)
 
 test:
 	$(GO) test -v ./...
