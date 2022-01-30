@@ -7,14 +7,10 @@ import (
 // WithUser returns a string with the user and hostname
 // e.g user@machine
 func WithUser() string {
-	host, err := os.Hostname()
-	if err != nil {
-		return ""
-	}
-
+	hostname := String()
 	user := os.Getenv("USER")
 
-	return user + "@" + host
+	return user + " @ " + hostname
 }
 
 // String returns the hostname as reported by the kernel
