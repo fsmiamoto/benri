@@ -6,7 +6,7 @@ BENCH_COUNT=1000
 all: build
 
 build:
-	$(GO) build -o $(BIN)
+	$(GO) build -o $(BIN) ./cmd/benri
 
 install: build
 	sudo cp $(BIN) /usr/bin/$(BIN)

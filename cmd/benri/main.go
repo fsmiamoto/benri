@@ -16,7 +16,7 @@ import (
 var onLeft = []*m.Module{
 	m.New(hostname.WithUser, m.After(" "), m.ColorOptions(color.FgHiBlue, color.Bold)),
 	m.New(directory.CurrentWorking, m.After(" "), m.ColorOptions(color.FgHiMagenta, color.Bold)),
-	m.New(git.CurrentBranch, m.After(" "), m.ColorOptions(color.FgHiCyan, color.Bold)),
+	m.New(git.CurrentBranch, m.Before("("), m.After(") "), m.ColorOptions(color.FgHiCyan, color.Bold)),
 }
 
 var onRight = []*m.Module{
